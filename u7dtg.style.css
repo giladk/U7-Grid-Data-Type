@@ -19,10 +19,11 @@
 .dtgTable .umb-mediapicker .picked-image .icon-delete {top:0px;left:0px;}
 .dtgTable .umb-mediapicker .picked-image .icon-delete:hover {display:block!important;}
 .dtgTable .umb-mediapicker .umb-sortable-thumbnails li {background:none;}
+.dtgTable .umb-textarea {max-width: 97px;}
 .dtgTable .list-icons li {padding-left:25px;}
 .dtgTable .list-icons li > i.icon {display:none;}
-.dtgTable input {max-width:150px;}
-.dtgTable select {max-width:150px;}
+.dtgTable input {max-width:78px;}
+.dtgTable select {max-width:78px;}
 
 .dtgTable .umb-datepicker input {max-width:130px;}
 .dtgTable .umb-datepicker .datepicker .icon-calendar {position:relative;top:0px;left:-3px;background:none;}

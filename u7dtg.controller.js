@@ -1,7 +1,7 @@
 ﻿angular.module("umbraco")
     .controller("u7dtg.editorController",
     function ($scope, $timeout) {
-
+	
         if (!$scope.model.value) {
             $scope.model.value = [
 
@@ -16,6 +16,16 @@
             config: {
                 minNumber: 0,
                 maxNumber: 0,
+                multiPicker: '0'
+            }
+        };
+
+        var dtgCheckboxList = {
+            alias: 'u7dtgCheckboxList',
+            label: '',
+            description: '',
+            view: 'checkboxlist',
+            config: {
                 multiPicker: '0'
             }
         };
@@ -63,6 +73,7 @@
             $scope.contentpickers = {};
             $scope.mediapickers = {};
             $scope.datepickers = {};
+			$scope.checkboxlists = {};
             $scope.rtEditors = [];
             rowObject = {};
             $scope.propertiesOrder = [];
@@ -132,6 +143,31 @@
                         $scope.contentpickers["c" + columnKey + "r" + key] = contentpicker;
 
                         var pickerWatch = $scope.$watch('contentpickers["c' + columnKey + 'r' + key + '"].value', function (newVal, oldVal) {
+                            if (newVal || newVal != oldVal) {
+                                $scope.model.value[key][editorProperyAlias] = newVal;
+                            }
+                        });
+                        propertiesEditorswatchers.push(pickerWatch)
+                    });
+                }
+
+                if (value.type == "checkboxlist") {
+                    angular.forEach($scope.model.value, function (row, key) {
+                        var checkboxlist = angular.copy(dtgCheckboxList);
+                        checkboxlist.alias = checkboxlist.alias + columnKey + key;
+                        if (row[editorProperyAlias] && Array.isArray(row[editorProperyAlias])) {
+                            checkboxlist.value = row[editorProperyAlias];
+                        } else {
+                            checkboxlist.value = [];
+                        }
+
+                        if (value.props.multiple) {
+                            checkboxlist.config.multiPicker = '1';
+                        }
+
+                        $scope.checkboxlists["c" + columnKey + "r" + key] = checkboxlist;
+
+                        var pickerWatch = $scope.$watch('checkboxlists["c' + columnKey + 'r' + key + '"].value', function (newVal, oldVal) {
                             if (newVal || newVal != oldVal) {
                                 $scope.model.value[key][editorProperyAlias] = newVal;
                             }
@@ -234,6 +270,29 @@
                             });
                             propertiesEditorswatchers.push(pickerWatch)
                     }
+					
+					if (value.type == "checkboxlist") {
+						var checkboxlist = angular.copy(dtgCheckboxList);
+						checkboxlist.alias = checkboxlist.alias + columnKey + newrowIndex;
+						var l = value.props.options.length;
+						checkboxlist.value = new Array(l);
+						for (var i=0; i < l; i++) {
+							checkboxlist.value[i] = false;
+						}
+
+						if (value.props.multiple) {
+							checkboxlist.config.multiPicker = '1';
+						}
+
+						$scope.checkboxlists["c" + columnKey + "r" + newrowIndex] = checkboxlist;
+
+						var pickerWatch = $scope.$watch('checkboxlists["c' + columnKey + 'r' + newrowIndex + '"].value', function (newVal, oldVal) {
+							if (newVal || newVal != oldVal) {
+								$scope.model.value[newrowIndex][editorProperyAlias] = newVal;
+							}
+						});
+						propertiesEditorswatchers.push(pickerWatch)
+					}
 
                     if (value.type == "datepicker") {
                             var datepicker = angular.copy(dtgDatePicker);
