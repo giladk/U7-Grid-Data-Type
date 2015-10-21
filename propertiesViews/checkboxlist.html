@@ -1,0 +1,8 @@
+﻿<table class='table table-striped table-responsive table-bordered dtgTable' style='max-width:120px;'>
+	<tr ng-repeat="opt in model.config.columns.columns[$index].props.options" class='special-table'>
+		<td class=''>
+			<input type="checkbox" ng-model="row[property][$index]" value="{{opt.value}}" name='{{property}}' class="" style='margin-right:8px' />{{opt.text}}
+		</td>
+	</tr>
+</table>
+<button ng-show="row[property]" type="button" class="btn btn-default btn-link" ng-click="row[property] = ''"><span class="icon icon-delete"></span> Clear selection</button>
