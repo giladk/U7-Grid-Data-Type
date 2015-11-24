@@ -69,7 +69,7 @@
 
         var propertiesEditorswatchers = [];
         var rowObject = {};
-        var resetProertiesEditors = function () {
+        var resetPropertiesEditors = function () {
             $scope.contentpickers = {};
             $scope.mediapickers = {};
             $scope.datepickers = {};
@@ -206,7 +206,7 @@
             });
         }
 
-        resetProertiesEditors();
+        resetPropertiesEditors();
         
         // Check for deleted columns
         angular.forEach($scope.model.value, function (row, key) {
@@ -317,7 +317,6 @@
 
                 });
 
-                //resetProertiesEditors();
             }
             else {
                 alert("Max rows is - " + maxRows);
@@ -326,7 +325,6 @@
 
         $scope.removeRow = function (index) {
             $scope.model.value.splice(index, 1);
-            //resetProertiesEditors();
         }
 
         $scope.sortableOptions = {
@@ -341,12 +339,6 @@
                 });
             },
             update: function (ev, ui) {
-                //console.log("A");
-
-                //$timeout(function () {
-                    //resetProertiesEditors();
-                //}, 500);
-                //
 
                 $timeout(function () {
                     $scope.rtEditors = [];
@@ -401,19 +393,6 @@
             }
         };
 
-        //$scope.moveUp = function (index) {
-        //    if (index != 0) {
-        //        $scope.model.value[index] = $scope.model.value.splice(index - 1, 1, $scope.model.value[index])[0];
-        //    }
-        //    //resetProertiesEditors();
-        //}
-        //$scope.moveDown = function (index) {
-        //    if (index != $scope.model.value.length - 1) {
-        //        $scope.model.value[index] = $scope.model.value.splice(index + 1, 1, $scope.model.value[index])[0];
-        //    }
-        //    //resetProertiesEditors();
-        //}
-
         $scope.selectedEditorIndex = null;
         $scope.selectedEditorRow = null;
         $scope.selectedEditorProperty = null;
@@ -436,7 +415,7 @@
       
 
         $scope.$on("formSubmitting", function (e, args) {
-            resetProertiesEditors();
+            resetPropertiesEditors();
         });
 
        
