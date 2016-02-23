@@ -220,7 +220,7 @@
         $scope.addRow = function () {
             if (maxRows == 0 || $scope.model.value.length < maxRows) {
 				
-				if ($scope.model.value === '') {
+                if ($scope.model.value === '') {
                     $scope.model.value = [];
                 }
 				
