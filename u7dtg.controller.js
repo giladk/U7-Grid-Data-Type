@@ -219,6 +219,11 @@
 
         $scope.addRow = function () {
             if (maxRows == 0 || $scope.model.value.length < maxRows) {
+				
+				if ($scope.model.value === '') {
+                    $scope.model.value = [];
+                }
+				
                 $scope.model.value.push(angular.copy(rowObject));
                 var newrowIndex = $scope.model.value.length - 1;
                 var newRow = $scope.model.value[newrowIndex];
