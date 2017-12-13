@@ -2,5 +2,40 @@
     <div class="dtgcheckbox">
         <span>Multiple :</span>
         <input type="checkbox" ng-model="column.props.multiple" />
+        <br /><br />        
+        <input type="text"
+               ng-model="column.props.query"
+               class="umb-editor umb-textstring"
+               placeholder="Enter xpath query">
+        <ul class="unstyled list-icons" style="margin-top: 15px">
+            <li style="max-width: 600px">
+                <i class="icon icon-help-alt"></i>
+                <a href ng-click="showHelp = !showHelp" prevent-default>
+                    Show xpath query help
+                </a>
+                <small ng-if="showHelp">
+                    <p>
+                        Use Xpath query to set a root node on the tree, either based on a search from the root of the content tree, or by using a context-aware placeholder.
+                    </p>
+                    <p>
+                        Placeholders finds the nearest published ID and runs its query from there. so for instance:
+
+                        <pre>$parent/newsArticle</pre>
+                        Will try to get the parent if available, but will then fall back to the nearest ancestor and query for all news articles there.
+                    </p>
+                    <p>
+                        Available placeholders: <br />
+                        <code>$current</code>: current page or closest found ancestor<br />
+                        <code>$parent</code>: parent page or closest found ancestor<br />
+                        <code>$root</code>: root of the content tree<br />
+                        <code>$site</code>: Ancestor node at level 1 <br />
+                    </p>
+                </small>
+            </li>
+            <li>
+                <i class="icon icon-delete red"></i>
+                <a href ng-click="column.props.query = ''"> Clear query</a>
+            </li>
+        </ul>
     </div>
 </div>
