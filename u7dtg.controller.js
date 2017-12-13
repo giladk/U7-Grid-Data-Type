@@ -16,7 +16,8 @@
             config: {
                 minNumber: 0,
                 maxNumber: 0,
-                multiPicker: '0'
+                multiPicker: '0',
+                startNode: { "query": "", "type": "content", "id": -1 }
             }
         };
 
@@ -139,6 +140,8 @@
                         if (value.props.multiple) {
                             contentpicker.config.multiPicker = '1';
                         }
+
+			contentpicker.config.startNode.query = value.props.query;
 
                         $scope.contentpickers["c" + columnKey + "r" + key] = contentpicker;
 
@@ -265,6 +268,8 @@
                             if (value.props.multiple) {
                                 contentpicker.config.multiPicker = '1';
                             }
+			    
+			    contentpicker.config.startNode.query = value.props.query;
 
                             $scope.contentpickers["c" + columnKey + "r" + newrowIndex] = contentpicker;
 
