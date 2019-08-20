@@ -28,6 +28,7 @@
     javascript: [
 		'~/App_Plugins/u7dtg/prevalues/u7dtg.prevalues.controller.js',
 		'~/App_Plugins/u7dtg/directives/rteDirective.js',
+		'~/App_Plugins/u7dtg/dialogs/rteDialog.controller.js',
         '~/App_Plugins/u7dtg/u7dtg.controller.js'
     ],
 	css: [
