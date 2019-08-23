@@ -1,7 +1,7 @@
 ﻿angular.module("umbraco")
     .controller("u7dtg.editorController",
-    function ($scope, $timeout) {
-	
+        function ($scope, $timeout, editorService) {
+
         if (!$scope.model.value) {
             $scope.model.value = [
 
@@ -403,19 +403,47 @@
         $scope.selectedEditorProperty = null;
         $scope.selectedEditorTitle = "";
 
-        $scope.editorOpen = function (row, property) {
-
-            var selectedEditorRowIndex = $scope.model.value.indexOf(row);
-            var selectedEditorColumnIndex = $scope.propertiesOrder.indexOf(property);
-            $scope.selectedEditorTitle = $scope.model.config.columns.columns[selectedEditorColumnIndex].title
-            angular.forEach($scope.rtEditors, function (value, key) {
-                if (value.alias == 'u7dtgRichtexteditor' + $scope.model.alias + selectedEditorColumnIndex + selectedEditorRowIndex) {
-                    $scope.selectedEditorIndex = key;
+        $scope.editorOpen = function(row, property) {
+            editorService.closeAll();
+            var index = "";
+            var rowindex = $scope.model.value.indexOf(row);
+            var colindex = $scope.propertiesOrder.indexOf(property);
+            var title = $scope.model.config.columns.columns[colindex].title;
+            var editor;
+            angular.forEach($scope.rtEditors,
+                function(value, key) {
+                    if (value.alias == 'u7dtgRichtexteditor' + $scope.model.alias + colindex + rowindex) {
+                        editor = value;
+                    }
+                });
+            var editorOptions = {
+                title: title,
+                view: '/App_Plugins/u7dtg/Dialogs/rteDialog.html',
+                dialogData: {
+                    row,
+                    property,
+                    index,
+                    title,
+                    colindex,
+                    rowindex,
+                    editor: editor
+                }, submit: function (data) {
+                    console.log(data);
+                    angular.forEach($scope.rtEditors,
+                        function (value, key) {
+                            if (value.alias == 'u7dtgRichtexteditor' + $scope.model.alias + colindex + rowindex) {
+                                value.value = data.editor.value;
+                            }
+                        });
+                    row[property] = data.editor.value;
+                    editorService.close();
+                },
+                close: function () {
+                    editorService.close();
                 }
-            });
-            $scope.selectedEditorRow = row;
-            $scope.selectedEditorProperty = property;
-        }
+        };
+            editorService.open(editorOptions);
+        };
 
       
 
